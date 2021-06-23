@@ -7,8 +7,26 @@ export var first_output_frame := 0
 var _frame_number := 0
 
 
+func _ready():
+	# Set an initial "previous frame"
+	var first_image = Image.new()
+	
+	first_image.create(1, 1, false, Image.FORMAT_RGBA8)
+	first_image.lock()
+	first_image.set_pixel(0, 0, Color(0.5, 0.0, 0.0, 0.0))
+	first_image.unlock()
+	
+	var first_texture = ImageTexture.new()
+	first_texture.create_from_image(first_image)
+	
+	$WaterHeights.set_previous_texture(first_texture)
+
 
 func _physics_process(delta):
+	if _frame_number == 0:
+		_frame_number += 1
+		return
+	
 	# Get result of previous frame
 	var result = $WaterHeights.get_texture()
 	
@@ -19,7 +37,7 @@ func _physics_process(delta):
 	var image_data = result.get_data()
 	
 	# Set a random pixel every 100 frames for testing
-	if _frame_number % 200 == 0:
+	if _frame_number % 50 == 0:
 		print("Setting pixel")
 		image_data.lock()
 		image_data.set_pixel(randi() % 64, randi() % 64, Color(0.0, 0.0, 0.0, 0.0))
