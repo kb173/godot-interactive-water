@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Water.shader" type="Shader" id=1]
+[ext_resource path="res://WaterHeights.gd" type="Script" id=3]
+[ext_resource path="res://Water.gd" type="Script" id=4]
+
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("WaterHeightViewport")
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/water_heights = SubResource( 3 )
+
+[sub_resource type="PlaneMesh" id=2]
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform sampler2D previous_frame;
+
+void fragment() {
+	COLOR = texture(previous_frame, UV) * 0.99;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 4 )
+
+[node name="TestScene" type="Spatial"]
+
+[node name="Water" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="WaterMesh" type="MeshInstance" parent="Water"]
+material_override = SubResource( 1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="WaterHeights" type="Node" parent="Water"]
+script = ExtResource( 3 )
+
+[node name="WaterHeightViewport" type="Viewport" parent="Water/WaterHeights"]
+size = Vector2( 1024, 1024 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Texture" type="ColorRect" parent="Water/WaterHeights/WaterHeightViewport"]
+material = SubResource( 5 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 1024, 1024 )
+
+[node name="WaterHeightViewport2" type="Viewport" parent="Water/WaterHeights"]
+size = Vector2( 1024, 1024 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Texture" type="ColorRect" parent="Water/WaterHeights/WaterHeightViewport2"]
+material = SubResource( 6 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 1024, 1024 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 3 )
