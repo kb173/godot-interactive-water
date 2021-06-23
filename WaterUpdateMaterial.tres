@@ -1,24 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
-[sub_resource type="Shader" id=4]
-code = "shader_type canvas_item;
-render_mode unshaded, blend_disabled;
-
-uniform sampler2D previous_frame: hint_black_albedo;
-
-uniform float water_height = 0.5;
-
-void fragment() {
-	// Read
-	float color = texture(previous_frame, UV).r;
-	
-	// Modification
-	color = mix(color, water_height, 0.1);
-	
-	// Write
-	COLOR = vec4(color, 0.0, 0.0, 1.0);
-}"
+[ext_resource path="res://WaterUpdate.shader" type="Shader" id=1]
 
 [resource]
-shader = SubResource( 4 )
+shader = ExtResource( 1 )
 shader_param/water_height = 0.5
