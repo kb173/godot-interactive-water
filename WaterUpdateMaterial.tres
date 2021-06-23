@@ -6,12 +6,14 @@ render_mode unshaded, blend_disabled;
 
 uniform sampler2D previous_frame: hint_black_albedo;
 
+uniform float water_height = 0.5;
+
 void fragment() {
 	// Read
 	float color = texture(previous_frame, UV).r;
 	
 	// Modification
-	color *= 0.99;
+	color = mix(color, water_height, 0.1);
 	
 	// Write
 	COLOR = vec4(color, 0.0, 0.0, 1.0);
@@ -19,3 +21,4 @@ void fragment() {
 
 [resource]
 shader = SubResource( 4 )
+shader_param/water_height = 0.5
