@@ -5,7 +5,7 @@ extends Node
 # Values are encoded like this:
 # R: y-position
 # G: y-velocity
-# B: ?
+# B: y-acceleration
 # A: ?
 # TODO: Consider increasing the accuracy of the texture
 

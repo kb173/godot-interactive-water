@@ -5,3 +5,5 @@
 [resource]
 shader = ExtResource( 1 )
 shader_param/water_height = 0.5
+shader_param/height_damping = 0.05
+shader_param/velocity_damping = 0.05

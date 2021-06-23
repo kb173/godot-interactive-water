@@ -5,21 +5,24 @@
 [ext_resource path="res://WaterHeights.gd" type="Script" id=3]
 [ext_resource path="res://Water.gd" type="Script" id=4]
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("WaterHeightViewport")
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 1 )
-shader_param/water_heights = SubResource( 3 )
+shader_param/water_heights = SubResource( 1 )
 
-[sub_resource type="PlaneMesh" id=2]
+[sub_resource type="PlaneMesh" id=3]
 subdivide_width = 128
 subdivide_depth = 128
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 2 )
 shader_param/water_height = 0.5
+shader_param/height_damping = 0.05
+shader_param/velocity_damping = 0.05
+shader_param/spread = 0.1
 
 [node name="TestScene" type="Spatial"]
 
@@ -27,8 +30,8 @@ shader_param/water_height = 0.5
 script = ExtResource( 4 )
 
 [node name="WaterMesh" type="MeshInstance" parent="Water"]
-material_override = SubResource( 1 )
-mesh = SubResource( 2 )
+material_override = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="WaterHeights" type="Node" parent="Water"]
@@ -44,7 +47,7 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="Texture" type="ColorRect" parent="Water/WaterHeights/WaterHeightViewport"]
-material = SubResource( 5 )
+material = SubResource( 4 )
 margin_right = 128.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
