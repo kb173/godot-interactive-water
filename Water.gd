@@ -6,26 +6,9 @@ export var output_debug_textures := false
 export var first_output_frame := 0
 var _frame_number := 0
 
-var _first_frame := true
-
-
-func _ready():
-	# Set an initial "previous frame"
-	var first_image = Image.new()
-	
-	first_image.create(128, 128, false, Image.FORMAT_RGBA8)
-	var first_texture = ImageTexture.new()
-	first_texture.create_from_image(first_image)
-	
-	$WaterHeights.set_previous_texture(first_texture)
 
 
 func _physics_process(delta):
-	# Skip the first frame because that would swap around buffers that aren't properly rendered yet
-	if _first_frame:
-		_first_frame = false
-		return
-	
 	# Get result of previous frame
 	var result = $WaterHeights.get_texture()
 	
@@ -39,7 +22,7 @@ func _physics_process(delta):
 	if _frame_number % 100 == 0:
 		print("Setting pixel")
 		image_data.lock()
-		image_data.set_pixel(randi() % 128, randi() % 128, Color(0.0, 0.0, 0.0))
+		image_data.set_pixel(randi() % 64, randi() % 64, Color(0.0, 0.0, 0.0, 0.0))
 		image_data.unlock()
 	
 	# Create an ImageTexture for this new frame
