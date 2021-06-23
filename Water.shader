@@ -8,7 +8,7 @@ float read_height(sampler2D tex, vec2 uv) {
 }
 
 void fragment() {
-	ALBEDO = vec3(0.2, 0.5, 0.8) * read_height(water_heights, UV);
+	ALBEDO = vec3(0.5, 0.7, 1.0) * (read_height(water_heights, UV) - 0.6) * 3.0;
 }
 
 void vertex() {

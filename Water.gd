@@ -19,7 +19,7 @@ func _physics_process(delta):
 	var image_data = result.get_data()
 	
 	# Set a random pixel every 100 frames for testing
-	if _frame_number % 100 == 0:
+	if _frame_number % 200 == 0:
 		print("Setting pixel")
 		image_data.lock()
 		image_data.set_pixel(randi() % 64, randi() % 64, Color(0.0, 0.0, 0.0, 0.0))
@@ -34,6 +34,6 @@ func _physics_process(delta):
 	
 	# Debug output
 	if output_debug_textures and _frame_number > first_output_frame:
-		image_data.get_data().save_png("res://debugframes/frame%s.png" % [_frame_number])
+		image_data.save_png("res://debugframes/frame%s.png" % [_frame_number])
 	
 	_frame_number += 1
