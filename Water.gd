@@ -1,8 +1,11 @@
 extends Spatial
 
-var first_frame := true
 
-var frame_number := 0
+# Saves every frame as a PNG in the project directory. Use for debugging (with caution)
+export var output_debug_textures := false
+var _frame_number := 0
+
+var _first_frame := true
 
 
 func _ready():
@@ -25,8 +28,8 @@ func _ready():
 
 func _process(delta):
 	# Skip the first frame because that would swap around buffers that aren't properly rendered yet
-	if first_frame:
-		first_frame = false
+	if _first_frame:
+		_first_frame = false
 		return
 	
 	# Get result of previous frame
@@ -41,6 +44,6 @@ func _process(delta):
 	
 	$WaterHeights.set_previous_texture(previous_frame)
 	
-	if false:
-		previous_frame.get_data().save_png("res://frame%s.png" % [frame_number])
-		frame_number += 1
+	if output_debug_textures:
+		previous_frame.get_data().save_png("res://frame%s.png" % [_frame_number])
+		_frame_number += 1
