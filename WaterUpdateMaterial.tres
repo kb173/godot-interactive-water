@@ -2,11 +2,19 @@
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
+render_mode unshaded, blend_disabled;
 
-uniform sampler2D previous_frame;
+uniform sampler2D previous_frame: hint_black_albedo;
 
 void fragment() {
-	COLOR = texture(previous_frame, UV) * 0.99;
+	// Read
+	float color = texture(previous_frame, UV).r;
+	
+	// Modification
+	color *= 0.99;
+	
+	// Write
+	COLOR = vec4(color, 0.0, 0.0, 1.0);
 }"
 
 [resource]
