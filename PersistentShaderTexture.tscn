@@ -6,9 +6,9 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
 shader_param/water_height = 0.596
-shader_param/height_damping = 0.763
-shader_param/velocity_damping = -0.009
-shader_param/spread = 0.833
+shader_param/height_damping = 0.243
+shader_param/velocity_damping = 0.645
+shader_param/spread = 0.921
 shader_param/delta_time = 0.1
 
 [node name="PersistentShaderTexture" type="Node"]

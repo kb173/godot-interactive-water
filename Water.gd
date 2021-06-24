@@ -40,7 +40,7 @@ func _physics_process(delta):
 	if _frame_number % 50 == 0:
 		print("Setting pixel")
 		image_data.lock()
-		image_data.set_pixel(randi() % 64, randi() % 64, Color(0.0, 0.0, 0.0, 0.0))
+		image_data.set_pixel(randi() % 256, randi() % 256, Color(0.0, 0.0, 0.0, 0.0))
 		image_data.unlock()
 	
 	# Create an ImageTexture for this new frame

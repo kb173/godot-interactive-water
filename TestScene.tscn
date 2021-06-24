@@ -13,8 +13,8 @@ shader = ExtResource( 1 )
 shader_param/water_heights = SubResource( 1 )
 
 [sub_resource type="PlaneMesh" id=3]
-subdivide_width = 64
-subdivide_depth = 64
+subdivide_width = 256
+subdivide_depth = 256
 
 [node name="TestScene" type="Spatial"]
 
@@ -27,6 +27,10 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="WaterHeights" parent="Water" instance=ExtResource( 2 )]
+size = Vector2( 256, 256 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.156, 1.988 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 3, 0 )
