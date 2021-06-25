@@ -6,6 +6,12 @@ export var output_debug_textures := false
 export var first_output_frame := 0
 var _frame_number := 0
 
+var _positions_to_set = []
+
+
+func set_depth_at_position(pos: Vector2, depth: float):
+	_positions_to_set.append([pos, depth])
+
 
 func _ready():
 	# Set an initial "previous frame"
@@ -36,12 +42,39 @@ func _physics_process(delta):
 	# Calculate a new frame. First, get the data of the last frame and modify it accordingly
 	var image_data = result.get_data()
 	
-	# Set a random pixel every 100 frames for testing
-	if _frame_number % 50 == 0:
-		print("Setting pixel")
+	# Set pixels for testing
+#	if true:
+#			if _frame_number % 200 == 1:
+#				print("Setting pixel")
+#				var pos_x = randi() % 256
+#				var pos_y = randi() % 256
+#				image_data.lock()
+#				image_data.set_pixel(50, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(51, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(100, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(101, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(150, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(151, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(200, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.set_pixel(201, 250, Color(0.0, 0.0, 0.0, 0.0))
+#				image_data.unlock()
+#	else:
+#		if _frame_number % 50 == 0:
+#			print("Setting pixel")
+#			image_data.lock()
+#			image_data.set_pixel(randi() % 256, randi() % 256, Color(0.0, 0.0, 0.0, 0.0))
+#			image_data.unlock()
+	
+	# Set outstanding pixels
+	for position_and_depth in _positions_to_set:
+		var pos = position_and_depth[0]
+		var depth = position_and_depth[1]
+		
 		image_data.lock()
-		image_data.set_pixel(randi() % 256, randi() % 256, Color(0.0, 0.0, 0.0, 0.0))
+		image_data.set_pixel(floor(pos.x * 255), floor(pos.y * 255), Color(depth, 0.0, 0.0, 0.0))
 		image_data.unlock()
+	
+	_positions_to_set.clear()
 	
 	# Create an ImageTexture for this new frame
 	var previous_frame = ImageTexture.new()
