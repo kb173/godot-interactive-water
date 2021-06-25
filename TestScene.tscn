@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Water.shader" type="Shader" id=1]
 [ext_resource path="res://PersistentShaderTexture.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TestScene.gd" type="Script" id=3]
 [ext_resource path="res://Water.gd" type="Script" id=4]
+[ext_resource path="res://WaterUpdateMaterial.tres" type="Material" id=5]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("WaterHeightViewport")
@@ -39,6 +40,7 @@ shape = SubResource( 4 )
 
 [node name="WaterHeights" parent="Water" instance=ExtResource( 2 )]
 size = Vector2( 256, 256 )
+shader_material = ExtResource( 5 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.900448, 0.434964, 0, -0.434964, 0.900448, 0, 1.481, 1.537 )

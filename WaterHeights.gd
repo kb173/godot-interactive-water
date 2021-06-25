@@ -18,6 +18,7 @@ func _ready():
 	$Viewport/Texture.rect_size = size
 	$Viewport.size = size
 	
+	assert(shader_material)
 	$Viewport/Texture.material = shader_material
 
 
