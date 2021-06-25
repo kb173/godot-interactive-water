@@ -35,7 +35,7 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Water/WaterMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Water/WaterMesh/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Water/WaterMesh/StaticBody"]
 shape = SubResource( 4 )
 
 [node name="WaterHeights" parent="Water" instance=ExtResource( 2 )]

@@ -17,9 +17,4 @@ func _physics_process(delta):
 		
 		if not result.empty():
 			# If there was a collision, set the depth of the water at that position
-			var position_2d = Vector2(result.position.x, result.position.z)
-			
-			position_2d += Vector2(1.0, 1.0)
-			position_2d /= 2.0
-			
-			$Water.set_depth_at_position(position_2d, 0.0)
+			$Water.set_depth_at_position(result.position, 0.0)

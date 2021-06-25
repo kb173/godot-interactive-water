@@ -4,13 +4,28 @@ extends Spatial
 # Saves every frame as a PNG in the project directory. Use for debugging (with caution)
 export var output_debug_textures := false
 export var first_output_frame := 0
-var _frame_number := 0
 
+export var plane_size := 2.0
+
+var _frame_number := 0
 var _positions_to_set = []
 
 
-func set_depth_at_position(pos: Vector2, depth: float):
-	_positions_to_set.append([pos, depth])
+func set_depth_at_position(pos: Vector3, depth: float):
+	# Transform the global position into 2D points on the water surface with values between 0 and 1
+	
+	pos -= translation
+	
+	var position_2d = Vector2(pos.x, pos.z)
+	
+	position_2d += Vector2(plane_size, plane_size) / 2.0
+	position_2d /= plane_size
+	
+	_positions_to_set.append([position_2d, depth])
+
+
+func _ready():
+	$WaterMesh.mesh.size = Vector2(plane_size, plane_size)
 
 
 func _physics_process(delta):
