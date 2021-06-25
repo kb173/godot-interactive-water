@@ -12,5 +12,5 @@ void fragment() {
 }
 
 void vertex() {
-	VERTEX.y = read_height(water_heights, UV);
+	VERTEX += NORMAL * read_height(water_heights, UV);
 }

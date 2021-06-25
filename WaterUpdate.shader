@@ -11,28 +11,30 @@ uniform float spread = 0.94;
 
 uniform float delta_time = 0.1;
 
+// Height and Velocity are encoded in two components each, so RG is height and BA is velocity.
+// This is needed to get a workable accuracy.
 float read_height(sampler2D tex, vec2 uv) {
 	return texture(tex, uv).r + texture(tex, uv).g / 255.0;
 }
-
 float read_velocity(sampler2D tex, vec2 uv) {
 	return texture(tex, uv).b + texture(tex, uv).a / 255.0;
 }
-
 float get_encoded_remainder(float num) {
 	return fract(num * 255.0);
 }
 
 void fragment() {
-	// Read
+	// Read values here
 	float height_here = read_height(previous_frame, UV);
 	float velocity_here = read_velocity(previous_frame, UV);
 	
 	// Apply force towards the base height
+	// This follows from the damped harmonic oscillator equation F = -kx-bv
 	float force = -height_damping * (height_here - water_height) - velocity_here * velocity_damping;
 	float acceleration_here = force;
 	
-	// Update values based on neighbouring values
+	// In addition to each individual height behaving like a spring, neighbouring heights are
+	// "connected by springs" as well:
 	
 	// Read more samples
 	float uv_mod = 1.0 / float(textureSize(previous_frame, 0).x);
@@ -48,11 +50,16 @@ void fragment() {
 	float left_delta = spread * (height_left - height_here);
 	float right_delta = spread * (height_right - height_here);
 	
+	// Use the biggest delta to apply to this height
 	float sum_delta = max(max(left_delta, right_delta), max(up_delta, down_delta));
 	
+	// Apply velocity and height
 	velocity_here += sum_delta + acceleration_here;
 	height_here += velocity_here;
 	
-	// Write
-	COLOR = vec4(height_here, get_encoded_remainder(height_here), velocity_here, get_encoded_remainder(velocity_here));
+	// Write to the texture
+	COLOR = vec4(
+		height_here, get_encoded_remainder(height_here),
+		velocity_here, get_encoded_remainder(velocity_here)
+	);
 }
