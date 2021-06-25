@@ -3,11 +3,11 @@ render_mode unshaded, blend_disabled;
 
 uniform sampler2D previous_frame;
 
-uniform float water_height = 0.1;
+uniform float water_height = 0.6;
 
-uniform float height_damping = 0.05;
-uniform float velocity_damping = 0.05;
-uniform float spread = 0.1;
+uniform float height_damping = 0.13;
+uniform float velocity_damping = 0.8;
+uniform float spread = 0.94;
 
 uniform float delta_time = 0.1;
 
