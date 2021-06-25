@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Water Sketch"
+config/name="godot-interactive-water"
 run/main_scene="res://TestScene.tscn"
 config/icon="res://icon.png"
 
