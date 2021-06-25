@@ -1,21 +1,24 @@
 extends Node
 
-# Provides access to water height textures for getting the result of the previous frame and for
-# setting the working texture for the next frame.
-# Values are encoded like this:
-# R: y-position
-# G: y-position (second component)
-# B: y-velocity
-# A: y-acceleration
-# TODO: Consider increasing the accuracy of the texture
+# A texture which is continuously (statefully) updated by a shader.
+#
+# Typical usage: Retrieve the current result with `get_texture` and, at the end of the frame,
+# re-insert that texture (updated if needed) with `set_previous_texture`.
+#
+# Note that the given shader needs to accept a `previous_frame` sampler2D. This represents the
+# result of the last frame which is used for generating the new result.
+
 
 export var size := Vector2(64, 64)
+export var shader_material: ShaderMaterial
 
 
 func _ready():
 	$Viewport/Texture.rect_min_size = size
 	$Viewport/Texture.rect_size = size
 	$Viewport.size = size
+	
+	$Viewport/Texture.material = shader_material
 
 
 func get_texture():
