@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Water.shader" type="Shader" id=1]
-[ext_resource path="res://WaterHeights.gd" type="Script" id=2]
-[ext_resource path="res://Water.gd" type="Script" id=3]
-[ext_resource path="res://WaterUpdateMaterial.tres" type="Material" id=4]
-[ext_resource path="res://PersistentShaderTexture.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/interactive_water/Water.shader" type="Shader" id=1]
+[ext_resource path="res://addons/interactive_water/WaterHeights.gd" type="Script" id=2]
+[ext_resource path="res://addons/interactive_water/Water.gd" type="Script" id=3]
+[ext_resource path="res://addons/interactive_water/WaterUpdateMaterial.tres" type="Material" id=4]
+[ext_resource path="res://addons/interactive_water/PersistentShaderTexture.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("WaterHeightViewport")

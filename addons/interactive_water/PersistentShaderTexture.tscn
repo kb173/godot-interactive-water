@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://WaterHeights.gd" type="Script" id=2]
+[ext_resource path="res://addons/interactive_water/WaterHeights.gd" type="Script" id=1]
 
 [node name="PersistentShaderTexture" type="Node"]
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1, 1 )
