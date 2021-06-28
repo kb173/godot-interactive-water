@@ -9,8 +9,6 @@ uniform float height_damping = 0.13;
 uniform float velocity_damping = 0.8;
 uniform float spread = 0.94;
 
-uniform float delta_time = 0.1;
-
 // Height and Velocity are encoded in two components each, so RG is height and BA is velocity.
 // This is needed to get a workable accuracy.
 float read_height(sampler2D tex, vec2 uv) {
